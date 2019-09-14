@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./displayHelper.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+       .btn {
+        background-color:#631040;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+        background-color: #49092f;
+        }
+        .wrap {
+            width: 1200px;
+        }
+        .left{
+            width: 580px;
+            height: 400px;;
+            float: left;
+            border:2px solid darkmagenta;
+        }
+        .right{
+            width: 580px;
+            height: 400px;
+            border:2px solid darkmagenta;
+            float: right;
+        }
+        .bgimg {
+            color: black;
+            background-repeat: no-repeat;
+            background-size: 1300px 300px;
+        }
+        .overallbgimage {
+            background-image: url('../public/images/player.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .inputtxt {
+            width:350px;
+            box-align: middle;
+        } 
+    </style>
+</head>
+
+<body class="overallbgimage">
+    <div class="bgimg">
+        <h2>Players information page</h2>
+            <p><strong>To manage players, click on 
+                </br>* "List all players" radio button to list all players. Feel free to sort or navigate to different pages.
+                </br>* "Create new player" radio button to create new player
+                </br>* "Get details of a player" radio button to view details of a particular player
+                </br>* "Delete details of a player" radio button to delete a particular player
+                </br>* "Update details of a player" radio button to update details of a particular player</strong>
+            </p>
+    </div>
+     <div>
+        <input type="radio" name="crud" class="radio-inline" onchange="fetchData()" id="rl" value=""><strong> List all players</strong> 
+        &nbsp;<input type="radio" name="crud" class="radio-inline" onchange="createPlayerPage()" id="rc" value="" ><strong> Create new player</strong>
+        &nbsp;<input type="radio" name="crud" class="radio-inline" onclick="getPlayerPage()" id="rr" value="" > <strong> Get details of a player</strong>
+        &nbsp;<input type="radio" name="crud" class="radio-inline" onclick="updatePlayerPage()" id="ru" value="" > <strong> Update details of a player</strong>
+        &nbsp;<input type="radio" name="crud" class="radio-inline" onclick="deletePlayerPage()" id="rd" value="" ><strong> Delete details of a player</strong>
+     </div>   
+
+    
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['table']});
+    </script>
+    <script type="text/javascript" src="../public/javascripts/displayHelper.js"></script>
+</body>
+
+</html>
