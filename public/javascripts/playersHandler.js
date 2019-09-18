@@ -1,16 +1,11 @@
 var db = require('../../DB/json/db.json')
-// var path = require('path')
+var path = require('path')
 var AWS = require('aws-sdk')
-// AWS.config.loadFromPath(path.join(__dirname, '../../DB/json/config.json'))
-AWS.config.credentials = new AWS.Credentials('AKIAJUNIL4RRBES4KPRQ', '/QdTJ02zJ0r8f7QMRXzUG/nPa5wsUGEgvADDzbTO', null)
+AWS.config.loadFromPath(path.join(__dirname, '../../DB/json/config.json'))
 AWS.config.region = 'us-east-1'
 var SES = new AWS.SES()
 
 module.exports = {
-  hello: function () {
-    return 'Hello'
-  },
-
   getAllPlayers: function () {
     return db
   },
