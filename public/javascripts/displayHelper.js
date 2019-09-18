@@ -1,12 +1,4 @@
-// module.exports = {
-function hw () {
-  return 3
-}
-// }
-
 function fetchData () {
-  debugger
-  var r = hw()
   createMainDiv()
   document.getElementById('main').outerHTML = `<div id="list">
             <div class="wrap">
@@ -136,6 +128,7 @@ function getPlayerPage () {
                     </div>
                     <div class="right"></br>
                         </br><strong><div id="playerdata"  height="200px" width="50%"></div></strong>
+                        </br><strong><div id="emaildata"  height="200px" width="50%"></div></strong>
                     </div>
                 </div></div>`
 }
@@ -153,7 +146,7 @@ function getPlayerDetails (idEl, dataEl) {
     },
     data: { id: playerid },
     success: function (data) {
-      if (dataEl == 'updateplayerdata') { updatePlayerDetails(data, dataEl) } else { displayPlayerDetails(data, dataEl) }
+      if (dataEl === 'updateplayerdata') { updatePlayerDetails(data, dataEl) } else { displayPlayerDetails(data, dataEl) }
     },
     error: function (xhr, status) {
       console.log(status)
@@ -181,6 +174,10 @@ function displayPlayerDetails (playerData, dataEl) {
   var table = new google.visualization.Table(document.getElementById(dataEl))
 
   table.draw(data, { alternatingRowStyle: true, showRowNumber: true, pageSize: 10, pagingButtons: 'auto', width: '100%', height: '100%' })
+  document.getElementById('emaildata').outerHTML = ` <label>Enter the Email id to receive the above details</label>
+            <input type="text" class="inputtxt" value="" id="emailid"></br>
+          </br><input value="Get player details" type="button" class="btn btn-primary" onclick="sendPlayerDetails('emailid', 'emaildata')">
+          `
 }
 
 function deletePlayerPage () {
@@ -311,6 +308,8 @@ function clearUnusedDiv () {
     document.getElementById('update').remove()
   } else if (document.getElementById('delete') != undefined) {
     document.getElementById('delete').remove()
+  } else if (document.getElementById('verify') != undefined) {
+    document.getElementById('verify').remove()
   }
 }
 
@@ -326,4 +325,59 @@ function isEmpty (obj) {
     if (obj.hasOwnProperty(key)) { return false }
   }
   return true
+}
+
+function verifyPlayerPage () {
+  createMainDiv()
+  document.getElementById('main').outerHTML = `<div id="verify">
+                <div class="wrap">
+                    <div class="left"></br>
+                        <label>Enter the Email address to verify</label>
+                        <input type="text" class="inputtxt" value="" id="verifyid"></br>
+                        </br><input value="Verify Email address" type="button" class="btn btn-primary" onclick="verifyEmail('verifyid', 'verifyData')">
+                    </div>
+                    <div class="right"></br>
+                        </br><strong><div id="verifyData"  height="200px" width="50%"></div></strong>
+                    </div>
+                </div></div>`
+}
+
+function verifyEmail(idEl, dataEl) {
+  const id = document.getElementById(idEl).value
+  $.ajax({
+    url: 'http://localhost:3000/players/verify',
+    type: 'POST',
+    crossDomain: true,
+    // dataType: 'json',
+    xhrFields: {
+      withCredentials: true
+    },
+    data: { Email: id },
+    success: function (data) {
+      document.getElementById(dataEl).innerText = data
+    },
+    error: function (xhr, status) {
+      console.log(status)
+    }
+  })
+}
+
+function sendPlayerDetails(idEl, dataEl) {
+  const id = document.getElementById(idEl).value
+  $.ajax({
+    url: 'http://localhost:3000/players/sendEmail',
+    type: 'POST',
+    crossDomain: true,
+    // dataType: 'json',
+    xhrFields: {
+      withCredentials: true
+    },
+    data: { to: id, body: 'player details here soon'},
+    success: function (data) {
+      document.getElementById(dataEl).innerText = data
+    },
+    error: function (xhr, status) {
+      console.log(status)
+    }
+  })
 }

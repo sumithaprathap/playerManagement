@@ -22,6 +22,9 @@ router.post('/players', function (req, res, next) {
 /* get a player. */
 router.get('/players/:id', function (req, res, next) {
   const pdata = pHandler.getPlayerDetails(req.params.id)
+  if (req.session.playerData === undefined) {
+    req.session.playerData = pdata
+  }
   res.send(pdata)
 })
 
@@ -35,6 +38,16 @@ router.delete('/players/:id', function (req, res, next) {
 router.put('/players/:id', function (req, res, next) {
   const info = pHandler.updatePlayer(req.body)
   res.send(info)
+})
+
+/* verify Email Address */
+router.post('/players/verify', function (req, res, next) {
+  pHandler.verifyEmailAddress(req, res)
+})
+
+/* Send player details to Email Address */
+router.post('/players/sendEmail', function (req, res, next) {
+  pHandler.sendDataToEmailAddress(req, res)
 })
 
 module.exports = router

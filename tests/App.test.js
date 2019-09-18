@@ -3,7 +3,7 @@ const app = require('../app')
 const request = require('supertest')
 
 // player infos stored in json for now
-var db = require('../public/json/db.json')
+var db = require('../DB/json/db.json')
 
 /* TEST lists all players. */
 describe('GET /players ', () => {
