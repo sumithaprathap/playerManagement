@@ -3,7 +3,10 @@ Sample app to manage players.
 The app performs basic CRUD operations on players data stored in a json file. The app can also be used to Email a player's details to your inbox.
 
 # Technology stack: 
-NodeJs(app dev), standard(styling/linting), jest(for tests), AWS-SES(Emailing service) 
+NodeJs(app dev)
+AWS-SES(Emailing service) 
+standard(styling/linting)
+jest(for tests)
 
 # Configurations:
 1. Clone the repo
