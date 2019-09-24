@@ -4,6 +4,7 @@ var AWS = require('aws-sdk')
 AWS.config.loadFromPath(path.join(__dirname, '../../DB/json/config.json'))
 AWS.config.region = 'us-east-1'
 var SES = new AWS.SES()
+const _ = require('lodash')
 
 module.exports = {
   getAllPlayers: function () {
@@ -31,26 +32,13 @@ module.exports = {
   },
 
   getPlayerDetails (id) {
-    id = id.replace(/:/g, '')
-    for (let i = 0; i < db.length; i++) {
-      if (db[i].id === id) {
-        console.log('object length is' + db[i].length)
-        return db[i]
-      }
-    }
-    return {}
+    return _.find(db, {id: id.replace(/:/g, '')})
   },
 
   deletePlayerDetails (id) {
     id = id.replace(/:/g, '')
     console.log('no. of elements before removing=' + db.length)
-    let index
-    for (let i = 0; i < db.length; i++) {
-      if (db[i].id === id) {
-        index = i
-        break
-      }
-    }
+    let index = _.findIndex(db, {id: id})
     if (index !== undefined) {
       db.splice(index, 1)
       console.log('no. of elements after removing=' + db.length)
@@ -61,13 +49,8 @@ module.exports = {
   },
 
   updatePlayer (updatedData) {
-    let index
-    for (let i = 0; i < db.length; i++) {
-      if (db[i].id === updatedData.id) {
-        index = i
-        break
-      }
-    }
+    let index = _.findIndex(db, {id: updatedData.id})
+
     if (index !== undefined) {
       db.splice(index, 1)
       if (updatedData.isActive === 'true') { updatedData.isActive = true } else { updatedData.isActive = false }
